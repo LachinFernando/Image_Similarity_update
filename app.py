@@ -66,7 +66,7 @@ def convert_test_data(img_path):
   return data, img,labels
 
 def visualizer(_distance, _nbors, number,_img_array ):
-  nbor_images = [f"/content/assets/{i}.jpg" for i in range(number)]
+  nbor_images = [f"assets/{i}.jpg" for i in range(number)]
   fig, axes = plt.subplots(1, len(_nbors)+1, figsize=(10, 5))
 
   for i in range(len(_nbors)+1):
@@ -107,10 +107,10 @@ if image:
     #displaying the image
     st.image(im)
     #saving the image for finding similarity
-    im.save("/content/assets/example.png")
+    im.save("assets/example.png")
 
     #getting the predictions
-    with open("/content/assets/example.png", "rb") as image:
+    with open("assets/example.png", "rb") as image:
       payload = base64.b64encode(image.read())
     response = get_prediction(payload)
     st.subheader("Category: {}".format(response))
@@ -118,7 +118,7 @@ if image:
     #Finding Neighbors
 
     #getting the image fectures and the image array
-    data, img_array,_ = convert_test_data("/content/assets/example.png")
+    data, img_array,_ = convert_test_data("assets/example.png")
 
     #importing the features csv
     data1 = pd.read_csv("feature_csv.csv")
@@ -151,7 +151,7 @@ if image:
         #downloading nbors
         for index, nbrs in enumerate(nbors):
             image_fb = "Images/Dogs/" + str(nbrs) + ".jpg"
-            storage.child(image_fb).download(f"/content/assets/{index}.jpg")
+            storage.child(image_fb).download(f"assets/{index}.jpg")
 
         visualizer(distance, nbors, no_nbors, img_array)
     
@@ -183,15 +183,6 @@ if image:
         #downloading nbors
         for index, nbrs in enumerate(nbors):
             image_fb = "Images/Cats/" + str(nbrs) + ".jpg"
-            storage.child(image_fb).download(f"/content/assets/{index}.jpg")
+            storage.child(image_fb).download(f"assets/{index}.jpg")
 
         visualizer(distance, nbors, no_nbors, img_array)
-
-
-
-
-
-
-
-
-
